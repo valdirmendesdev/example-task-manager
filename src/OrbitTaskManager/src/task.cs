@@ -27,4 +27,6 @@ public interface ITask
   string getParentModule();
 
   bool execute();
+
+  bool alreadyExecuted();
 }

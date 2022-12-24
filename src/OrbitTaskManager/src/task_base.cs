@@ -25,6 +25,11 @@ public abstract class TaskBase : ITask
     this._executionStatus = executionStatus;
   }
 
+  public bool alreadyExecuted()
+  {
+    return this.getExecutionStatus() == "Não executada" ? false : true;
+  }
+
   public bool getCompatibility()
   {
     return this._compatible;

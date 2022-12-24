@@ -2,7 +2,7 @@ public class TaskAuthenticationTest
 {
   private TaskAuthentication cut;
 
-  public TaskAuthenticationTest() => cut = new TaskAuthentication("1.0.0", "Task title", false, false, "OrbitTaskManager.Core");
+  public TaskAuthenticationTest() => cut = new TaskAuthentication();
 
   [Fact]
   public void ShouldExecuteMethod()

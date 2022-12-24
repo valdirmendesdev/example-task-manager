@@ -9,6 +9,7 @@ public class TaskEnvironment : TaskBase
   public override bool execute()
   {
     Console.WriteLine("Executando a tarefa de mudança de ambiente");
+    this.setExecutionStatus("Executado com sucesso");
     return true;
   }
 }

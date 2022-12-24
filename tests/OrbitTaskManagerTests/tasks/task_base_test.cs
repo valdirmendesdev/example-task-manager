@@ -9,7 +9,13 @@ class local_task_for_testing : TaskBase
 
   public override bool execute()
   {
-    throw new NotImplementedException();
+    if (this.alreadyExecuted())
+    {
+      return false;
+    }
+
+    this.setExecutionStatus("Executado com sucesso");
+    return true;
   }
 }
 
@@ -66,5 +72,14 @@ public class TaskBaseTest
     Assert.Equal("Não executada", cut.getExecutionStatus());
     cut.setExecutionStatus("Não executada");
     Assert.Equal("Não executada", cut.getExecutionStatus());
+  }
+
+  [Fact]
+  public void ShouldNotExecuteTaskTwice()
+  {
+    Assert.Equal(cut.getExecutionStatus(), "Não executada");
+    Assert.True(cut.execute());
+    Assert.Equal(cut.getExecutionStatus(), "Executado com sucesso");
+    Assert.False(cut.execute());
   }
 }
