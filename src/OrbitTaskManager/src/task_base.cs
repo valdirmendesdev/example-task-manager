@@ -23,6 +23,7 @@ public abstract class TaskBase : ITask
     this._repeatable = repeatable;
     this._parent = parent;
     this._executionStatus = executionStatus;
+    this._longDescription = "";
   }
 
   public bool alreadyExecuted()
