@@ -1,4 +1,4 @@
-using OrbitTaskManager.Core;
+using OrbitTaskManager.Tasks;
 
 public class TaskAuthentication : TaskBase
 {

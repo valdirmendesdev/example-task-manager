@@ -1,2 +1,2 @@
 global using Xunit;
-global using OrbitTaskManager.Core;
+global using OrbitTaskManager.Tasks;

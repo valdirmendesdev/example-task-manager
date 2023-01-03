@@ -1,3 +1,5 @@
+namespace OrbitTaskManager.Tasks;
+
 public interface ITask
 {
 

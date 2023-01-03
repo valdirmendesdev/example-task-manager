@@ -1,4 +1,4 @@
-namespace OrbitTaskManager.Core;
+namespace OrbitTaskManager.Tasks;
 
 
 // Uma classe abstrata (abstract) não pode ser instanciada!!!

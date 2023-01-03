@@ -1,4 +1,4 @@
-namespace OrbitTaskManager.Core;
+namespace OrbitTaskManager.Tasks;
 
 public class TaskManager
 {
