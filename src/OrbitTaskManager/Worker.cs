@@ -1,4 +1,4 @@
-using OrbitTaskManager.Core;
+using OrbitTaskManager.Tasks;
 
 namespace OrbitTaskManager;
 public class Worker : BackgroundService
@@ -18,7 +18,7 @@ public class Worker : BackgroundService
     {
       _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
-      //Genérico => Código que evolui ou código auto evolutivo!
+      //Genérico => Código!
       foreach (var task in taskManager.getExecutableTasks())
       {
         Console.WriteLine(taskManager.executeTask(task));

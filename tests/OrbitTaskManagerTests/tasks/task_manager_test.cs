@@ -38,4 +38,10 @@ public class TaskManagerTest
     result = cut.executeTask(task);
     Assert.Equal(result, "Tarefa já executada!");
   }
+
+  [Fact]
+  public void ShouldBePossibleCheckATaskExecutionStatus()
+  {
+
+  }
 }

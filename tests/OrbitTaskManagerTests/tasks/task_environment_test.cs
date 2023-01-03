@@ -7,11 +7,11 @@ public class TaskEnvironmentTest
   [Fact]
   public void ShouldHaveTheInitialValues()
   {
-    Assert.Equal("1.0.0", cut.getVersion());
-    Assert.Equal("Define o ambiente de execução", cut.getTitle());
-    Assert.True(cut.getCompatibility());
-    Assert.False(cut.getRepeatable());
-    Assert.Equal("OrbitTaskManager.Core", cut.getParentModule());
+    Assert.Equal("1.0.0", cut.Version());
+    Assert.Equal("Define o ambiente de execução", cut.Title());
+    Assert.True(cut.IsCompatible());
+    Assert.False(cut.IsRepeatable());
+    Assert.Equal("OrbitTaskManager.Core", cut.ParentModule());
     Assert.Equal("Não executada", cut.getExecutionStatus());
   }
 

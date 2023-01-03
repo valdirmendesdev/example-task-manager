@@ -31,7 +31,7 @@ public abstract class TaskBase : ITask
     return this.getExecutionStatus() == "Não executada" ? false : true;
   }
 
-  public bool getCompatibility()
+  public bool IsCompatible()
   {
     return this._compatible;
   }
@@ -41,28 +41,28 @@ public abstract class TaskBase : ITask
     return this._executionStatus;
   }
 
-  public string getLongDescription()
+  public string LongDescription()
   {
     return this._longDescription;
   }
 
-  public string getParentModule()
+  public string ParentModule()
   {
     return this._parent;
   }
 
-  public bool getRepeatable()
+  public bool IsRepeatable()
   {
     return this._repeatable;
   }
 
 
-  public string getTitle()
+  public string Title()
   {
     return this._title;
   }
 
-  public string getVersion()
+  public string Version()
   {
     return this._version;
   }
@@ -72,7 +72,7 @@ public abstract class TaskBase : ITask
     this._executionStatus = executionStatus;
   }
 
-  public void setLongDescription(string longDescription)
+  public void SetLongDescription(string longDescription)
   {
     this._longDescription = longDescription;
   }

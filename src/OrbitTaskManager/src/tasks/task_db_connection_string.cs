@@ -8,7 +8,7 @@ public class TaskDbConnectionString : TaskBase
 
   public override bool execute()
   {
-    Console.WriteLine($"Executando: {this.getTitle()}!");
+    Console.WriteLine($"Executando: {this.Title()}!");
     this.setExecutionStatus("Executado com sucesso");
     return true;
   }

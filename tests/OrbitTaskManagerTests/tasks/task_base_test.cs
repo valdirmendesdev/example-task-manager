@@ -28,42 +28,42 @@ public class TaskBaseTest
   [Fact]
   public void ShouldGetTheVersionOfTheTask()
   {
-    Assert.Equal("1.0.0", cut.getVersion());
+    Assert.Equal("1.0.0", cut.Version());
   }
 
   [Fact]
   public void ShouldReturnTheTitleOfTheTask()
   {
-    Assert.Equal("Task title", cut.getTitle());
+    Assert.Equal("Task title", cut.Title());
   }
 
   [Fact]
   public void ShouldReturnTheTaskParentModule()
   {
-    Assert.Equal("OrbitTaskManager.Core", cut.getParentModule());
+    Assert.Equal("OrbitTaskManager.Core", cut.ParentModule());
   }
 
   [Fact]
   public void ShouldReturnIfTaskIsRepeatable()
   {
-    Assert.False(cut.getRepeatable());
+    Assert.False(cut.IsRepeatable());
     cut = new local_task_for_testing("1.0.0", "Task title", false, true, "OrbitTaskManager.Core");
-    Assert.True(cut.getRepeatable());
+    Assert.True(cut.IsRepeatable());
   }
 
   [Fact]
   public void ShouldReturnIfTaskIsCompatibleWithEnvironment()
   {
-    Assert.False(cut.getCompatibility());
+    Assert.False(cut.IsCompatible());
     cut = new local_task_for_testing("1.0.0", "Task title", true, true, "OrbitTaskManager.Core");
-    Assert.True(cut.getCompatibility());
+    Assert.True(cut.IsCompatible());
   }
 
   [Fact]
   public void ShouldChangeLongDescription()
   {
-    cut.setLongDescription("Long description");
-    Assert.Equal("Long description", cut.getLongDescription());
+    cut.SetLongDescription("Long description");
+    Assert.Equal("Long description", cut.LongDescription());
   }
 
   [Fact]

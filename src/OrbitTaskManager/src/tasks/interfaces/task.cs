@@ -7,13 +7,13 @@ public interface ITask
   // "Obsessividade" por tipos primitivos!
   // format: 1.0.0
 
-  string getVersion(); //get version
+  string Version(); //get version
 
-  string getTitle();
+  string Title();
 
-  void setLongDescription(string longDescription);
+  void SetLongDescription(string longDescription);
 
-  string getLongDescription();
+  string LongDescription();
 
   //Vai virar Enum - 
   //Execution Status => vai virar objeto com dados de data e usuário.
@@ -22,11 +22,11 @@ public interface ITask
 
   string getExecutionStatus();
 
-  bool getCompatibility();
+  bool IsCompatible();
 
-  bool getRepeatable();
+  bool IsRepeatable();
 
-  string getParentModule();
+  string ParentModule();
 
   bool execute();
 
