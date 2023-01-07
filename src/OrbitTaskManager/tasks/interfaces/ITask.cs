@@ -2,16 +2,15 @@ namespace OrbitTaskManager.Tasks;
 
 public interface ITask
 {
+  Version LatestVersion { get; }
 
-  // Change version - PROBLEMA - IMPORTANT! (Vai virar classe ou tipo forte!)
-  // "Obsessividade" por tipos primitivos!
-  // format: 1.0.0
-
-  Version CurrentVersion { get; }
+  Version? CurrentExecutedVersion { get; }
 
   string Title { get; }
 
   string LongDescription { get; set; }
+
+  bool AnyExecutedVersion { get; }
 
   bool IsCompatible { get; }
 

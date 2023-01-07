@@ -41,7 +41,7 @@ public class TaskBaseTest
   public void ShouldCreateAValidInstance()
   {
     //Checking instance created on constructor
-    Assert.Equal("1.0.0", cut.CurrentVersion.ToString());
+    Assert.Equal("1.0.0", cut.LatestVersion.ToString());
     Assert.Equal("Task title", cut.Title);
     Assert.Empty(cut.LongDescription);
     Assert.True(cut.IsCompatible);
@@ -51,5 +51,18 @@ public class TaskBaseTest
     cut = createInstanceForTesting(isRepeatable: true, longDescription: "Long description");
     Assert.True(cut.IsRepeatable);
     Assert.Equal("Long description", cut.LongDescription);
+  }
+
+  [Fact]
+  public void ShouldNotCreateAValidInstanceWithInvalidVersionParameter()
+  {
+    var invalidVersions = new string[] { "", "1", "1.a", "foo.bar", ".0." };
+    foreach (var invalidVersion in invalidVersions)
+    {
+      Assert.Throws<ArgumentException>(() =>
+      {
+        cut = createInstanceForTesting(strVersion: invalidVersion);
+      });
+    }
   }
 }
