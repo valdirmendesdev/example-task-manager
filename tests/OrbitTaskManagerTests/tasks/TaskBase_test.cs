@@ -20,14 +20,9 @@ public class local_task_for_testing : TaskBase
 
 public class TaskBaseTest
 {
-  private TaskBase cut;
+  private TaskBase? cut;
 
-  public TaskBaseTest()
-  {
-    cut = createInstanceForTesting();
-  }
-
-  private static local_task_for_testing createInstanceForTesting(
+  private local_task_for_testing createInstanceForTesting(
     string strVersion = "1.0.0",
     string title = "Task title",
     bool isRepeatable = false,
@@ -40,8 +35,8 @@ public class TaskBaseTest
   [Fact]
   public void ShouldCreateAValidInstance()
   {
-    //Checking instance created on constructor
-    Assert.Equal("1.0.0", cut.LatestVersion.ToString());
+    cut = createInstanceForTesting();
+    Assert.Equal("1.0.0", cut.CurrentVersion.ToString());
     Assert.Equal("Task title", cut.Title);
     Assert.Empty(cut.LongDescription);
     Assert.True(cut.IsCompatible);
@@ -53,16 +48,17 @@ public class TaskBaseTest
     Assert.Equal("Long description", cut.LongDescription);
   }
 
-  [Fact]
-  public void ShouldNotCreateAValidInstanceWithInvalidVersionParameter()
+  [Theory]
+  [InlineData("")]
+  [InlineData("1")]
+  [InlineData("1.a")]
+  [InlineData("foo.bar")]
+  [InlineData(".0.")]
+  public void ShouldNotCreateAValidInstanceWithInvalidVersionParameter(string invalidVersion)
   {
-    var invalidVersions = new string[] { "", "1", "1.a", "foo.bar", ".0." };
-    foreach (var invalidVersion in invalidVersions)
+    Assert.Throws<ArgumentException>(() =>
     {
-      Assert.Throws<ArgumentException>(() =>
-      {
-        cut = createInstanceForTesting(strVersion: invalidVersion);
-      });
-    }
+      cut = createInstanceForTesting(strVersion: invalidVersion);
+    });
   }
 }
