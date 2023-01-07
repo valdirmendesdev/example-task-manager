@@ -1,79 +1,54 @@
 namespace OrbitTaskManager.Tasks;
 
-
 // Uma classe abstrata (abstract) não pode ser instanciada!!!
 // Também serve de modelo (estrutura), mas pode possuir código e propriedades!!
 public abstract class TaskBase : ITask
 {
-  private string _version;
-  private string _title;
-  private string _longDescription;
-  private bool _repeatable;
-  private bool _compatible; //check!
-  private string _parent;
-  private string _executionStatus; //check!
+  public Version CurrentVersion { get; private set; }
 
-  public abstract bool execute();
+  public string Title { get; private set; }
 
-  public TaskBase(string version, string title, bool compatible, bool repeatable, string parent, string executionStatus = "Não executada")
+  public string LongDescription { get; set; }
+
+  public virtual bool IsCompatible => true;
+
+  public bool IsRepeatable { get; private set; }
+
+  public string ParentModule { get; private set; }
+
+  public abstract void Do();
+
+  public abstract void Undo();
+
+  private void fillProperties(Version currentVersion,
+                  string title,
+                  string parentModule,
+                  bool isRepeatable = false,
+                  string longDescription = "")
   {
-    this._version = version;
-    this._title = title;
-    this._compatible = compatible;
-    this._repeatable = repeatable;
-    this._parent = parent;
-    this._executionStatus = executionStatus;
-    this._longDescription = "";
+    this.CurrentVersion = currentVersion;
+    this.Title = title;
+    this.LongDescription = longDescription;
+    this.IsRepeatable = isRepeatable;
+    this.ParentModule = parentModule;
   }
 
-  public bool alreadyExecuted()
+  public TaskBase(Version currentVersion,
+                  string title,
+                  string parentModule,
+                  bool isRepeatable = false,
+                  string longDescription = "")
   {
-    return this.getExecutionStatus() == "Não executada" ? false : true;
+    this.fillProperties(currentVersion, title, parentModule, isRepeatable, longDescription);
   }
 
-  public bool IsCompatible()
+  public TaskBase(string currentVersion,
+                string title,
+                string parentModule,
+                bool isRepeatable = false,
+                string longDescription = "")
   {
-    return this._compatible;
-  }
-
-  public string getExecutionStatus()
-  {
-    return this._executionStatus;
-  }
-
-  public string LongDescription()
-  {
-    return this._longDescription;
-  }
-
-  public string ParentModule()
-  {
-    return this._parent;
-  }
-
-  public bool IsRepeatable()
-  {
-    return this._repeatable;
-  }
-
-
-  public string Title()
-  {
-    return this._title;
-  }
-
-  public string Version()
-  {
-    return this._version;
-  }
-
-  public void setExecutionStatus(string executionStatus)
-  {
-    this._executionStatus = executionStatus;
-  }
-
-  public void SetLongDescription(string longDescription)
-  {
-    this._longDescription = longDescription;
+    Version _currentVersion = new Version(currentVersion);
+    this.fillProperties(_currentVersion, title, parentModule, isRepeatable, longDescription);
   }
 }

@@ -1,21 +1,20 @@
 // classe : classe => Representa herança
 // Classe : interface => representa implementação da interface
 // classe : classe, interface, classe .... 
-class local_task_for_testing : TaskBase
+public class local_task_for_testing : TaskBase
 {
-  public local_task_for_testing(string version, string title, bool compatible, bool repeatable, string parent, string executionStatus = "Não executada") : base(version, title, compatible, repeatable, parent, executionStatus)
+  public local_task_for_testing(string currentVersion, string title, string parentModule, bool isRepeatable = false, string longDescription = "") : base(currentVersion, title, parentModule, isRepeatable, longDescription)
   {
   }
 
-  public override bool execute()
+  public override void Do()
   {
-    if (this.alreadyExecuted())
-    {
-      return false;
-    }
+    throw new NotImplementedException();
+  }
 
-    this.setExecutionStatus("Executado com sucesso");
-    return true;
+  public override void Undo()
+  {
+    throw new NotImplementedException();
   }
 }
 
@@ -23,63 +22,34 @@ public class TaskBaseTest
 {
   private TaskBase cut;
 
-  public TaskBaseTest() => cut = new local_task_for_testing("1.0.0", "Task title", false, false, "OrbitTaskManager.Core");
-
-  [Fact]
-  public void ShouldGetTheVersionOfTheTask()
+  public TaskBaseTest()
   {
-    Assert.Equal("1.0.0", cut.Version());
+    cut = createInstanceForTesting();
+  }
+
+  private static local_task_for_testing createInstanceForTesting(
+    string strVersion = "1.0.0",
+    string title = "Task title",
+    bool isRepeatable = false,
+    string parentModule = "OrbitTaskManager.Core",
+    string longDescription = "")
+  {
+    return new local_task_for_testing(strVersion, title, parentModule, isRepeatable, longDescription);
   }
 
   [Fact]
-  public void ShouldReturnTheTitleOfTheTask()
+  public void ShouldCreateAValidInstance()
   {
-    Assert.Equal("Task title", cut.Title());
-  }
+    //Checking instance created on constructor
+    Assert.Equal("1.0.0", cut.CurrentVersion.ToString());
+    Assert.Equal("Task title", cut.Title);
+    Assert.Empty(cut.LongDescription);
+    Assert.True(cut.IsCompatible);
+    Assert.False(cut.IsRepeatable);
+    Assert.Equal("OrbitTaskManager.Core", cut.ParentModule);
 
-  [Fact]
-  public void ShouldReturnTheTaskParentModule()
-  {
-    Assert.Equal("OrbitTaskManager.Core", cut.ParentModule());
-  }
-
-  [Fact]
-  public void ShouldReturnIfTaskIsRepeatable()
-  {
-    Assert.False(cut.IsRepeatable());
-    cut = new local_task_for_testing("1.0.0", "Task title", false, true, "OrbitTaskManager.Core");
-    Assert.True(cut.IsRepeatable());
-  }
-
-  [Fact]
-  public void ShouldReturnIfTaskIsCompatibleWithEnvironment()
-  {
-    Assert.False(cut.IsCompatible());
-    cut = new local_task_for_testing("1.0.0", "Task title", true, true, "OrbitTaskManager.Core");
-    Assert.True(cut.IsCompatible());
-  }
-
-  [Fact]
-  public void ShouldChangeLongDescription()
-  {
-    cut.SetLongDescription("Long description");
-    Assert.Equal("Long description", cut.LongDescription());
-  }
-
-  [Fact]
-  public void ShouldChangeTheExecutionStatus()
-  {
-    Assert.Equal("Não executada", cut.getExecutionStatus());
-    cut.setExecutionStatus("Não executada");
-    Assert.Equal("Não executada", cut.getExecutionStatus());
-  }
-
-  [Fact]
-  public void ShouldNotExecuteTaskTwice()
-  {
-    Assert.Equal(cut.getExecutionStatus(), "Não executada");
-    Assert.True(cut.execute());
-    Assert.Equal(cut.getExecutionStatus(), "Executado com sucesso");
-    Assert.False(cut.execute());
+    cut = createInstanceForTesting(isRepeatable: true, longDescription: "Long description");
+    Assert.True(cut.IsRepeatable);
+    Assert.Equal("Long description", cut.LongDescription);
   }
 }
