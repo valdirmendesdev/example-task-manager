@@ -1,41 +1,16 @@
 // classe : classe => Representa herança
 // Classe : interface => representa implementação da interface
 // classe : classe, interface, classe .... 
-public class local_task_for_testing : TaskBase
-{
-  public local_task_for_testing(string currentVersion, string title, string parentModule, bool isRepeatable = false, string longDescription = "") : base(currentVersion, title, parentModule, isRepeatable, longDescription)
-  {
-  }
-
-  public override void Do()
-  {
-    throw new NotImplementedException();
-  }
-
-  public override void Undo()
-  {
-    throw new NotImplementedException();
-  }
-}
+using OrbitTaskManagerTests.Utils;
 
 public class TaskBaseTest
 {
   private TaskBase? cut;
 
-  private local_task_for_testing createInstanceForTesting(
-    string strVersion = "1.0.0",
-    string title = "Task title",
-    bool isRepeatable = false,
-    string parentModule = "OrbitTaskManager.Core",
-    string longDescription = "")
-  {
-    return new local_task_for_testing(strVersion, title, parentModule, isRepeatable, longDescription);
-  }
-
   [Fact]
   public void ShouldCreateAValidInstance()
   {
-    cut = createInstanceForTesting();
+    cut = Local_task_for_testing.CreateInstanceForTesting();
     Assert.Equal("1.0.0", cut.CurrentVersion.ToString());
     Assert.Equal("Task title", cut.Title);
     Assert.Empty(cut.LongDescription);
@@ -43,7 +18,7 @@ public class TaskBaseTest
     Assert.False(cut.IsRepeatable);
     Assert.Equal("OrbitTaskManager.Core", cut.ParentModule);
 
-    cut = createInstanceForTesting(isRepeatable: true, longDescription: "Long description");
+    cut = Local_task_for_testing.CreateInstanceForTesting(isRepeatable: true, longDescription: "Long description");
     Assert.True(cut.IsRepeatable);
     Assert.Equal("Long description", cut.LongDescription);
   }
@@ -58,7 +33,7 @@ public class TaskBaseTest
   {
     Assert.Throws<ArgumentException>(() =>
     {
-      cut = createInstanceForTesting(strVersion: invalidVersion);
+      cut = Local_task_for_testing.CreateInstanceForTesting(strVersion: invalidVersion);
     });
   }
 }
