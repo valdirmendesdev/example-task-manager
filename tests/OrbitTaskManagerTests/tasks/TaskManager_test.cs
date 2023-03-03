@@ -15,7 +15,6 @@ public class TaskManagerTest
   public void ShouldExecuteATaskSuccessfully()
   {
     Local_task_for_testing taskForTest = Local_task_for_testing.CreateInstanceForTesting();
-
     taskRepo.Setup(t => t.SaveExecutionInfo(taskForTest));
 
     cut.DoTask(taskForTest);
@@ -31,5 +30,18 @@ public class TaskManagerTest
       cut.DoTask(task: Local_task_for_testing.GetANullInstance());
     };
     Assert.Throws<ArgumentNullException>(checkException);
+  }
+
+  [Fact]
+  public void ShouldThrowExceptionIfTheTaskAlreadyExecuted()
+  {
+    Local_task_for_testing taskForTest = Local_task_for_testing.CreateInstanceForTesting();
+    taskRepo.Setup(t => t.GetExecutionInfo(taskForTest)).Returns(new TaskExecutionInfo(taskForTest.CurrentVersion, "John Doe", DateTime.Now));
+
+    Action checkAlreadyExecuted = () =>
+    {
+      cut.DoTask(taskForTest);
+    };
+    Assert.Throws<ApplicationException>(checkAlreadyExecuted);
   }
 }

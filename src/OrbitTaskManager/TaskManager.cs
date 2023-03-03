@@ -10,12 +10,16 @@ public class TaskManager
   }
 
   //verificar status atual da tarefa
-  //Executar a tarefa
-  //Salvar no banco status de execução da tarefa
+  //Executar a tarefa ✅
+  //Salvar no banco status de execução da tarefa ✅
 
   public void DoTask(ITask task)
   {
     _ = task ?? throw new ArgumentNullException(nameof(task));
+
+    TaskExecutionInfo? executionInfo = _taskRepo.GetExecutionInfo(task);
+
+    if (executionInfo is not null) throw new ApplicationException("You cannot execute a task that has already been executed");
 
     task.Do();
     _taskRepo.SaveExecutionInfo(task);

@@ -18,6 +18,6 @@ public class TaskExecutionInfo
 
 public interface ITaskRepository
 {
-  TaskExecutionInfo GetExecutionInfo(ITask task);
+  TaskExecutionInfo? GetExecutionInfo(ITask task);
   void SaveExecutionInfo(ITask task);
 }
