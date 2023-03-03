@@ -31,7 +31,7 @@ public class Local_task_for_testing : TaskBase
     return new Local_task_for_testing(strVersion, title, parentModule, isRepeatable, longDescription);
   }
 
-  public static ITask? ReturnsNullInstance()
+  public static ITask? GetANullInstance()
   {
     return null;
   }
